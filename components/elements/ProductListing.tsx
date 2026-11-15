@@ -19,12 +19,13 @@ export default function ProductListing(props: Props) {
                    height={200}
                    className="h-[200px] w-[200px] object-cover"
             />
-            <div className="flex flex-col gap-4 w-full">
-                <span className="font-serif font-light text-2xl">{props.title}</span>
+            <div className="flex flex-col gap-2 w-full">
+                <span className="font-serif font-light text-xl">{props.title}</span>
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col gap-0">
                         <span className="text-xs text-foreground/50">Best price</span>
-                        <span className="font-bold text-lg">LKR {formatPriceWithCommas(props.price)}</span>
+                        <span
+                            className="font-bold text-md tracking-[0.05em] leading-relaxed">LKR {formatPriceWithCommas(props.price)}</span>
                     </div>
 
                     <Button variant="default" className="rounded-none bg-accent cursor-pointer hover:bg-accent/80 py-5">
