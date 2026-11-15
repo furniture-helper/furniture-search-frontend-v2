@@ -1,28 +1,35 @@
 import {useEffect, useMemo, useState} from "react";
 import {normalizeUrl} from "@/utils/url-utils";
-import {Product} from "@/types/ProductTypes";
+import {ProductGroup} from "@/types/ProductTypes";
 
-type ProductSearchResponse = {
+type ProductSearchItemResponse = {
     url: string;
     title: string;
-    price: number;
+    price: string;
     image_url?: string | null;
-    availability: boolean;
+    in_stock: boolean | null;
+};
+
+type ProductSearchGroupResponse = {
+    products: ProductSearchItemResponse[];
 };
 
 export type UseSearchResultsResult = {
-    searchQueryUnencoded: string;
-    searchResults: Product[];
+    searchResults: ProductGroup[];
     isLoading: boolean;
     error: string | null;
 };
+
+function isProductSearchResponse(data: unknown): data is ProductSearchGroupResponse[] {
+    return Array.isArray(data) && data.every((group) => Array.isArray(group?.products));
+}
 
 export function useSearchResults(searchQuery: string): UseSearchResultsResult {
     const searchQueryUnencoded = useMemo(
         () => decodeURIComponent(searchQuery).replaceAll("-", " "),
         [searchQuery]
     );
-    const [searchResults, setSearchResults] = useState<Product[]>([]);
+    const [searchResults, setSearchResults] = useState<ProductGroup[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -35,30 +42,36 @@ export function useSearchResults(searchQuery: string): UseSearchResultsResult {
 
             try {
                 const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/search?query=${searchQueryUnencoded}`
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/search-grouped?query=${searchQueryUnencoded}`
                 );
 
                 if (!res.ok) {
                     throw new Error(`Request failed with status ${res.status}`);
                 }
 
-                const data: ProductSearchResponse[] = await res.json();
+                const data: unknown = await res.json();
+                if (!isProductSearchResponse(data)) {
+                    throw new Error("Unexpected search response format");
+                }
 
                 if (!isActive) {
                     return;
                 }
 
                 setSearchResults(
-                    data.map((product) => {
-                        const normalizedImageUrl = normalizeUrl(product.image_url ?? "");
+                    data.map((group) => {
+                        return group.products.map((product) => {
+                            const normalizedImageUrl = normalizeUrl(product.image_url ?? "");
+                            const parsedPrice = Number.parseFloat(product.price);
 
-                        return {
-                            url: product.url,
-                            title: product.title,
-                            price: product.price,
-                            imageUrl: normalizedImageUrl || "/assets/no_image_available.jpg",
-                            availability: product.availability,
-                        };
+                            return {
+                                url: product.url,
+                                title: product.title,
+                                price: Number.isFinite(parsedPrice) ? parsedPrice : 0,
+                                imageUrl: normalizedImageUrl || "/assets/no_image_available.jpg",
+                                availability: product.in_stock ?? false,
+                            };
+                        });
                     })
                 );
             } catch (err) {
@@ -83,7 +96,6 @@ export function useSearchResults(searchQuery: string): UseSearchResultsResult {
     }, [searchQueryUnencoded]);
 
     return {
-        searchQueryUnencoded,
         searchResults,
         isLoading,
         error,

@@ -6,6 +6,8 @@ export type Product = {
     availability: boolean;
 }
 
+export type ProductGroup = Product[];
+
 export type ProductSearchResults = {
     products: Product[];
 }
