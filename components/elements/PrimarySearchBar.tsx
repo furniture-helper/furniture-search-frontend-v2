@@ -6,8 +6,12 @@ import {Button} from "@/components/ui/button"
 import {useState} from "react"
 import {useRouter} from "next/navigation"
 
-export default function PrimarySearchBar() {
-    const [searchQuery, setSearchQuery] = useState("")
+export type Props = {
+    searchQuery?: string
+}
+
+export default function PrimarySearchBar(props: Props) {
+    const [searchQuery, setSearchQuery] = useState(props.searchQuery || "")
     const router = useRouter()
 
     function handleSearch() {

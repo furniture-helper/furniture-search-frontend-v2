@@ -5,7 +5,7 @@ export default function Footer() {
         <div
             className="flex flex-row bg-accent-2 text-sm font-bold p-5 text-accent-foreground justify-between items-center">
             <div className="flex flex-col gap-6">
-                <span>wherecanibuythis.lk</span>
+                <span>iwannabuythis.lk</span>
                 <span className="text-xs font-light">Made in Sri Lanka with 💛</span>
             </div>
 
