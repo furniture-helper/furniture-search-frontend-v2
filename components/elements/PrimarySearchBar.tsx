@@ -5,6 +5,7 @@ import {ArrowRightIcon, SearchIcon} from "lucide-react"
 import {Button} from "@/components/ui/button"
 import {useState} from "react"
 import {useRouter} from "next/navigation"
+import {sanitizeTextForUrl} from "@/utils/text-utils";
 
 export type Props = {
     searchQuery?: string
@@ -15,7 +16,7 @@ export default function PrimarySearchBar(props: Props) {
     const router = useRouter()
 
     function handleSearch() {
-        const sanitizedQuery = searchQuery.trim().replace(/\s+/g, "-").toLowerCase()
+        const sanitizedQuery = sanitizeTextForUrl(searchQuery)
         if (!sanitizedQuery) {
             return
         }

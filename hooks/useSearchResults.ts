@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {normalizeUrl} from "@/utils/url-utils";
 import {ProductGroup} from "@/types/ProductTypes";
+import {filterAnomalies} from "@/utils/product-utils";
 
 type ProductSearchItemResponse = {
     url: string;
@@ -60,7 +61,7 @@ export function useSearchResults(searchQuery: string): UseSearchResultsResult {
 
                 setSearchResults(
                     data.map((group) => {
-                        return group.products.map((product) => {
+                        const products = group.products.map((product) => {
                             const normalizedImageUrl = normalizeUrl(product.image_url ?? "");
                             const parsedPrice = Number.parseFloat(product.price);
 
@@ -72,6 +73,7 @@ export function useSearchResults(searchQuery: string): UseSearchResultsResult {
                                 availability: product.in_stock ?? false,
                             };
                         });
+                        return filterAnomalies(products);
                     })
                 );
             } catch (err) {
