@@ -44,7 +44,7 @@ export default function ProductGroupListing(props: Props) {
                             className="font-bold text-md tracking-[0.05em] leading-relaxed">LKR {formatPriceWithCommas(bestPriceProduct.price)}</span>
                     </div>
 
-                    <a href={`/products/${sanitizeTextForUrl(bestPriceProduct.title)}?url=${encodeURIComponent(bestPriceProduct.url)}`}>
+                    <a href={`/product/${sanitizeTextForUrl(bestPriceProduct.title)}?url=${encodeURIComponent(bestPriceProduct.url)}`}>
                         <Button variant="default"
                                 className="rounded-none bg-accent cursor-pointer hover:bg-accent/80 py-5">
                             <span className="font-bold text-xs">See details</span>
