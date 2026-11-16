@@ -1,7 +1,42 @@
 const BRAND_LOGOS: Record<string, string> = {
+    "abansit.lk": "/assets/logos/abansit.lk.png",
+    "barclays.lk": "/assets/logos/barclays.lk.png",
+    "bigdeals.lk": "/assets/logos/bigdeals.lk.png",
+    "brownsdeals.com": "/assets/logos/brownsdeals.com.png",
+    "buyabans.com": "/assets/logos/buyabans.com.png",
+    "buyzone.lk": "/assets/logos/buyzone.lk.png",
+    "celltronics.lk": "/assets/logos/celltronics.lk.png",
+    "chamacomputers.lk": "/assets/logos/chamacomputers.lk.png",
+    "damro.lk": "/assets/logos/damro.lk.png",
+    "dialcom.lk": "/assets/logos/dialcom.lk.png",
+    "finez.lk": "/assets/logos/finez.lk.png",
+    "fireworks.lk": "/assets/logos/fireworks.lk.png",
+    "gamestreet.lk": "/assets/logos/gamestreet.lk.png",
+    "geniusmobile.lk": "/assets/logos/geniusmobile.lk.png",
+    "homelux.lk": "/assets/logos/homelux.lk.png",
     "idealz.lk": "/assets/logos/idealz.lk.png",
+    "laptop.lk": "/assets/logos/laptop.lk.png",
+    "lifemobile.lk": "/assets/logos/lifemobile.lk.png",
+    "luxuryx.lk": "/assets/logos/luxuryx.lk.png",
+    "mansafit.com": "/assets/logos/mansafit.com.png",
+    "mcentre.lk": "/assets/logos/mcentre.lk.png",
+    "mysoftlogic.lk": "/assets/logos/mysoftlogic.lk.png",
+    "nanotek.lk": "/assets/logos/nanotek.lk.png",
+    "onei.lk": "/assets/logos/onei.lk.png",
+    "pettahkade.lk": "/assets/logos/pettahkade.lk.png",
+    "raesl.lk": "/assets/logos/raesl.lk.png",
+    "redlinetech.lk": "/assets/logos/redlinetech.lk.png",
+    "rooter.lk": "/assets/logos/rooter.lk.png",
+    "simplytek.lk": "/assets/logos/simplytek.lk.png",
+    "singersl.com": "/assets/logos/singersl.com.png",
+    "singhagiri.lk": "/assets/logos/singhagiri.lk.png",
+    "strong.lk": "/assets/logos/strong.lk.png",
+    "techzone.lk": "/assets/logos/techzone.lk.png",
+    "ugreen.lk": "/assets/logos/ugreen.lk.png",
+    "xclusive.lk": "/assets/logos/xclusive.lk.png",
+    "xmobile.lk": "/assets/logos/xmobile.lk.png",
 };
 
 export function getBrandLogo(domain: string): string {
-    return BRAND_LOGOS[domain] ?? "/assets/no_image_available.png";
+    return BRAND_LOGOS[domain] ?? "/assets/no_image_available.jpg";
 }

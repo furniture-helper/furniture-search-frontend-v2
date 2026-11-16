@@ -25,7 +25,7 @@ export default function ProductView(props: Props) {
                 <span className="font-serif text-2xl text-center">{props.product.title}</span>
             </div>
 
-            <div className="flex flex-col gap-0 w-full mt-5 p-5 bg-foreground-accent gap-5">
+            <div className="flex flex-col w-full mt-5 p-5 bg-foreground-accent gap-5">
                 <div className="flex flex-row justify-between items-center">
                     <div className="flex flex-row gap-4 w-full items-center">
                         <Image src={getBrandLogo(getDomainFromUrl(props.product.url))}
@@ -33,7 +33,7 @@ export default function ProductView(props: Props) {
                                width={50}
                                height={50}
                         />
-                        <span className="font-bold text-lg">{getDomainFromUrl(props.product.url)}</span>
+                        <span className="text-lg">{getDomainFromUrl(props.product.url)}</span>
                     </div>
 
                     <StockChip availability={props.product.availability}/>

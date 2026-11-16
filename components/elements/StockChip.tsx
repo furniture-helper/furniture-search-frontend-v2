@@ -3,7 +3,7 @@ export type Props = {
 }
 
 export default function StockChip(props: Props) {
-    const bgColor = props.availability ? "bg-green-300" : "bg-red-300";
+    const bgColor = props.availability ? "bg-green-300" : "bg-red-200";
     const textColor = props.availability ? "text-green-800" : "text-red-800";
     const dotBgColor = props.availability ? "bg-green-800" : "bg-red-800";
     const text = props.availability ? "In Stock" : "Out of Stock";

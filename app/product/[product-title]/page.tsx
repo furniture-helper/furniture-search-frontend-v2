@@ -4,8 +4,9 @@ import {useProduct} from "@/hooks/useProduct";
 import {useSearchParams} from "next/navigation";
 import ProductView from "@/components/elements/ProductView";
 import PrimarySearchBar from "@/components/elements/PrimarySearchBar";
+import {Suspense} from "react";
 
-export default function Product() {
+function ProductContent() {
     const params = useSearchParams();
 
     const url = params.get("url");
@@ -27,5 +28,13 @@ export default function Product() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function Product() {
+    return (
+        <Suspense fallback={<span>Loading...</span>}>
+            <ProductContent/>
+        </Suspense>
     );
 }
