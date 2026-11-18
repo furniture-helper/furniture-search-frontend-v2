@@ -11,3 +11,8 @@ export type ProductGroup = Product[];
 export type ProductSearchResults = {
     products: Product[];
 }
+
+export type PriceHistoryEntry = {
+    timestamp: Date;
+    price: string;
+}

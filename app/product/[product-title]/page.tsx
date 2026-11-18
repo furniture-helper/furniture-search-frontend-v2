@@ -5,6 +5,7 @@ import {useSearchParams} from "next/navigation";
 import ProductView from "@/components/elements/ProductView";
 import PrimarySearchBar from "@/components/elements/PrimarySearchBar";
 import {Suspense} from "react";
+import PriceHistoryView from "@/components/elements/PriceHistoryView";
 
 function ProductContent() {
     const params = useSearchParams();
@@ -22,7 +23,10 @@ function ProductContent() {
                 ) : isLoading ? (
                     <span>Loading...</span>
                 ) : product ? (
-                    <ProductView product={product}/>
+                    <div className={"flex flex-col gap-5"}>
+                        <ProductView product={product}/>
+                        <PriceHistoryView product={product}/>
+                    </div>
                 ) : (
                     <span>Product not found</span>
                 )}
