@@ -6,6 +6,7 @@ import StockChip from "@/components/elements/StockChip";
 import {formatPriceWithCommas} from "@/utils/price-utils";
 import {Button} from "@/components/ui/button";
 import {ExternalLinkIcon} from "lucide-react";
+import LastUpdatedChip from "@/components/elements/LastUpdatedChip";
 
 export type Props = {
     product: Product;
@@ -49,6 +50,8 @@ export default function ProductView(props: Props) {
                         <ExternalLinkIcon className="text-accent-foreground"/>
                     </Button>
                 </a>
+
+                <LastUpdatedChip product={props.product}/>
 
             </div>
         </div>
