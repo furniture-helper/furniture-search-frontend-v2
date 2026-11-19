@@ -14,7 +14,7 @@ export default function PriceHistoryView(props: Props) {
         <div className="flex flex-col gap-2 border-foreground/10 p-2">
             <span className="font-serif text-lg">Price History</span>
             <span
-                className="font-light text-sm text-foreground/50">Tracked price history over the last 90 days</span>
+                className="font-light text-sm text-foreground/50 -mt-3">Tracked price history over the last 90 days</span>
             {error ? (
                 <span className="text-sm text-red-500">{error}</span>
             ) : isLoading ? (

@@ -45,6 +45,14 @@ function formatLkrFromNumericPrice(price: number): string {
     return `LKR ${formatted}`;
 }
 
+type XAxisTickProps = {
+    x?: number | string;
+    y?: number | string;
+    payload?: { value: number | string };
+    index?: number;
+    visibleTicksCount?: number;
+};
+
 export default function PriceHistoryChart(props: Props) {
     const chartData: ChartEntry[] = props.priceHistory
         .map((entry) => {
@@ -78,7 +86,7 @@ export default function PriceHistoryChart(props: Props) {
     return (
         <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={chartData} margin={{top: 8, right: 12, left: 12, bottom: 8}}>
+                <LineChart data={chartData} margin={{top: 8, right: 0, left: 0, bottom: 8}}>
                     <defs>
                         <linearGradient id="priceLineGradient" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.22}/>
@@ -98,8 +106,33 @@ export default function PriceHistoryChart(props: Props) {
                         domain={["dataMin", "dataMax"]}
                         ticks={xAxisTicks}
                         interval={0}
-                        tickFormatter={(value: number) => formatDateShort(new Date(value))}
-                        tick={{fontSize: 12, fill: "var(--color-muted-foreground)"}}
+                        tickMargin={8}
+                        tick={(tickProps: XAxisTickProps) => {
+                            const {x = 0, y = 0, payload, index = 0, visibleTicksCount = 0} = tickProps;
+                            const xValue = typeof x === "number" ? x : Number.parseFloat(x) || 0;
+                            const yValue = typeof y === "number" ? y : Number.parseFloat(y) || 0;
+                            const rawTimestamp = payload?.value;
+                            const timestamp = typeof rawTimestamp === "number"
+                                ? rawTimestamp
+                                : Number.parseFloat(rawTimestamp ?? "") || 0;
+                            const isFirstTick = index === 0;
+                            const isLastTick = index === visibleTicksCount - 1;
+                            const textAnchor = isFirstTick ? "start" : isLastTick ? "end" : "middle";
+                            const dx = isFirstTick ? 0 : isLastTick ? 0 : 0;
+
+                            return (
+                                <text
+                                    x={xValue + dx}
+                                    y={yValue}
+                                    dy={16}
+                                    textAnchor={textAnchor}
+                                    fontSize={12}
+                                    fill="var(--color-muted-foreground)"
+                                >
+                                    {formatDateShort(new Date(timestamp))}
+                                </text>
+                            );
+                        }}
                         tickLine={false}
                         axisLine={{stroke: "var(--color-border)"}}
                     />

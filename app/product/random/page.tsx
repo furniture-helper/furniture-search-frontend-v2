@@ -5,6 +5,7 @@ import PrimarySearchBar from "@/components/elements/PrimarySearchBar";
 import {Suspense} from "react";
 import PriceHistoryView from "@/components/elements/PriceHistoryView";
 import {useRandomProduct} from "@/hooks/useRandomProduct";
+import SimilarProducts from "@/components/elements/SimilarProducts";
 
 function ProductContent() {
     const {product, isLoading, error} = useRandomProduct();
@@ -22,6 +23,7 @@ function ProductContent() {
                     <div className={"flex flex-col gap-5"}>
                         <ProductView product={product}/>
                         <PriceHistoryView product={product}/>
+                        <SimilarProducts product={product}/>
                     </div>
                 ) : (
                     <span>Product not found</span>

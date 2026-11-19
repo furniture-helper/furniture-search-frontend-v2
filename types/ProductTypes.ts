@@ -26,3 +26,11 @@ export type ProductMetadata = {
     last_classified_at: Date | null;
     last_inferred_at: Date | null;
 }
+
+export type SimilarProductEntry = {
+    product: Product;
+    title_similarity: number;
+    cosine_similarity: number;
+    combined_similarity: number;
+    cosine_similarity_finetuned_768: number;
+}
